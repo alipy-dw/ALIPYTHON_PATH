@@ -9,14 +9,24 @@ html = response.text
 soup = bs(html, 'lxml')
 date_of_news = soup.find_all(class_="lineDate")
 news_time = soup.find_all('div', class_="time")
-news_title = soup.find_all('div', class_="title")
+news_title = soup.find('div', class_="row lineNews").find_all('div', class_="title")
 news_list = []
-for time, title in  zip(news_time, news_title):
-    news_list.append({
-        'TIME':time.text,
-        "TITLE":title.text
-    })
-
+for date, time, title in  zip(date_of_news,news_time, news_title):
+    if not date in date_of_news: #тут я хочу что бы цикл шел даже если нету даты в date of news, как мне сделать так
+        news_list.append({
+            'TIME':time.text,
+            "TITLE":title.text
+        })
+    else:
+        news_list.append({
+            "DATE":date.text,
+            'TIME':time.text,
+            "TITLE":title.text
+        })
 with open('/home/hello/Рабочий стол/practice/parsing/project2/news_data.json', 'w') as file:
     json.dump(news_list, file, ensure_ascii=False, indent=4)
-print(news_title[0])
+
+# print(news_title[0].text)
+
+# parent = soup.find('div', class_="one").find_parent()
+# print(parent.text)
