@@ -31,4 +31,12 @@ import json
 with open ('categories.json') as file:
     all_categories = json.load(file)
 
-print(all_categories)
+# print(all_categories)
+
+# for category_name, category_href in all_categories.items():
+
+#     rep = ['Новый']
+#     for item in rep:
+#         if item in category_name:
+#             category_name = category_name.strip().replace('Новый', "")
+#     print(category_name )
